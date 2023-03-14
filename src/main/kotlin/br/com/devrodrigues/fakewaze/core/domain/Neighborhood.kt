@@ -8,12 +8,12 @@ data class Neighborhood(
     var neighbors: List<Neighborhood> = mutableListOf()
 ) {
     fun addNeighbor(neighbor: Neighborhood, weight: Int) {
-        neighbors?.plus(neighbor)
+        neighbors.plus(neighbor)
         this.weight = weight
     }
 
-    fun listNeighbors(): List<Neighborhood> {
-        return neighbors?: emptyList()
+    fun listNeighbors(): List<String> {
+        return neighbors.map { it.name }
     }
 
     fun getWeight(): Int {
@@ -22,5 +22,9 @@ data class Neighborhood(
 
     override fun toString(): String {
         return "Neighborhood(name='$name', lat='$lat', lng='$lng', weight=$weight, neighbors=$neighbors)"
+    }
+
+    fun getWeight(neighbor: Neighborhood): Int {
+        return neighbor.weight?:0
     }
 }

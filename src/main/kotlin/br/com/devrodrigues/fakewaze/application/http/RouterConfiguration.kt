@@ -26,7 +26,7 @@ class RouterConfiguration(
         }
         accept(APPLICATION_JSON).nest {
             WAZE_ROOT_PATH.nest {
-                GET("/{${WAZE_TO_PARAMETER}}/{${WAZE_FROM_PARAMETER}}") { req ->
+                GET("/{${WAZE_FROM_PARAMETER}}/{${WAZE_TO_PARAMETER}}") { req ->
                     withRequestContext(req.context) {
                         wazeApiHandle.getRoute(req)
                     }

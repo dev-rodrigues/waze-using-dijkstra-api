@@ -1,17 +1,93 @@
 [
   {
-    "name": "test",
-    "lat": "40.7127",
-    "lng": "-74.0059",
+    "name": "Leblon",
+    "lat": "-22.9839",
+    "lng": "-43.2233",
     "weight": 1,
-    "neighbors": [
-      {
-        "lat": "40.7127",
-        "lng": "-74.0059",
-        "name": "test2",
-        "weight": 1,
-        "neighbors": []
-      }
-    ]
+    "neighbors": []
+  },
+  {
+    "name": "Ipanema",
+    "lat": "-22.9858",
+    "lng": "-43.2047",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Leme",
+    "lat": "-22.9622",
+    "lng": "-43.1711",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Botafogo",
+    "lat": "-22.9514",
+    "lng": "-43.1800",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Flamengo",
+    "lat": "-22.9361",
+    "lng": "-43.1758",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Catete",
+    "lat": "-22.9293",
+    "lng": "-43.1786",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Glória",
+    "lat": "-22.923165",
+    "lng": "-43.176027",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Laranjeiras",
+    "lat": "-22.9344",
+    "lng": "-43.1936",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Jardim Botânico",
+    "lat": "-22.9647",
+    "lng": "-43.2244",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Lagoa",
+    "lat": "-22.9690",
+    "lng": "-43.2242",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Gavea",
+    "lat": "-22.9958",
+    "lng": "-43.2589",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Copacabana",
+    "lat": "-22.969773",
+    "lng": "-43.184307",
+    "weight": 1,
+    "neighbors": []
+  },
+  {
+    "name": "Lapa",
+    "lat": "-22.9144",
+    "lng": "-43.1828",
+    "weight": 1,
+    "neighbors": []
   }
 ]

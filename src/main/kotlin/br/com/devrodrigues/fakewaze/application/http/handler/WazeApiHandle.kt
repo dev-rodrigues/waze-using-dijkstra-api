@@ -13,17 +13,22 @@ import org.springframework.web.reactive.function.server.bodyValueAndAwait
 class WazeApiHandle(
     private val useCase: ShouldGetBestRouteUseCase
 ) {
-    suspend fun getRoute(request: ServerRequest):ServerResponse {
+    suspend fun getRoute(request: ServerRequest): ServerResponse {
 
         val from = request.pathVariable(WAZE_FROM_PARAMETER)
         val to = request.pathVariable(WAZE_TO_PARAMETER)
 
         LOGGER.info { "to: $to, from: $from" }
 
-        return ServerResponse.ok().bodyValueAndAwait(useCase.execute(
-            from = from,
-            to = to
-        ))
+        val response = useCase.execute(
+            nameFrom = from, nameTo = to
+        )
+
+        return ServerResponse
+            .ok()
+            .bodyValueAndAwait(
+                body = response
+            )
     }
 
     companion object {
