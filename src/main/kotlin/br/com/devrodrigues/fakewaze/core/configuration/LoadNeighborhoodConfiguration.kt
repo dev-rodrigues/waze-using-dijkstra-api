@@ -66,7 +66,9 @@ class LoadNeighborhoodConfiguration(
                 this.getNeighborhoodData()["Gavea"]!!,
                 this.getNeighborhoodData()["Copacabana"]!!
             ),
-            "Ipanema" to listOf(this.getNeighborhoodData()["Leblon"]!!, this.getNeighborhoodData()["Gavea"]!!),
+            "Ipanema" to listOf(
+                this.getNeighborhoodData()["Leblon"]!!, this.getNeighborhoodData()["Gavea"]!!
+            ),
             "Copacabana" to listOf(
                 this.getNeighborhoodData()["Ipanema"]!!,
                 this.getNeighborhoodData()["Botafogo"]!!,
@@ -91,12 +93,10 @@ class LoadNeighborhoodConfiguration(
             ),
             "Glória" to listOf(this.getNeighborhoodData()["Lapa"]!!, this.getNeighborhoodData()["Flamengo"]!!),
             "Laranjeiras" to listOf(
-                this.getNeighborhoodData()["Catete"]!!,
-                this.getNeighborhoodData()["Jardim Botânico"]!!
+                this.getNeighborhoodData()["Catete"]!!, this.getNeighborhoodData()["Jardim Botânico"]!!
             ),
             "Jardim Botânico" to listOf(
-                this.getNeighborhoodData()["Laranjeiras"]!!,
-                this.getNeighborhoodData()["Lagoa"]!!
+                this.getNeighborhoodData()["Laranjeiras"]!!, this.getNeighborhoodData()["Lagoa"]!!
             ),
             "Lagoa" to listOf(
                 this.getNeighborhoodData()["Jardim Botânico"]!!, this.getNeighborhoodData()["Gavea"]!!

@@ -1,10 +1,12 @@
 package br.com.devrodrigues.fakewaze.application.http.handler.dto
 
+import br.com.devrodrigues.fakewaze.core.domain.Neighborhood
+
 data class BestRouteResponse(
     val origin: String,
     val destination: String,
     val distance: Double,
-    val route: List<String>
+    val route: List<Neighborhood>
 )
 
 data class ErrorResponse(

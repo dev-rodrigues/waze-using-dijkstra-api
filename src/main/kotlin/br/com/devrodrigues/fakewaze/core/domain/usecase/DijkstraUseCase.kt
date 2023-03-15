@@ -17,66 +17,59 @@ class DijkstraUseCase {
         end: Neighborhood,
         maxDistance: Double = 5000.0,
         maxNodes: Int = 10
-    ): Pair<Double, List<String>> {
+    ): Pair<Double, List<Neighborhood>> {
+
         val visited = mutableSetOf<Neighborhood>()
         val distances = mutableMapOf<Neighborhood, Double>()
         val predecessors = mutableMapOf<Neighborhood, Neighborhood?>()
         val queue = PriorityQueue<Neighborhood>(compareBy { distances.getOrDefault(it, Double.MAX_VALUE) })
 
-        queue.add(graph[start.name])
+        queue.add(start)
         distances[start] = 0.0
 
         var nodesVisited = 0
+        var pathFound = false
 
         while (queue.isNotEmpty() && nodesVisited < maxNodes) {
             val current = queue.poll()
             visited.add(current)
 
             if (current == end) {
+                pathFound = true
                 break
             }
 
-            for (neighbor in current.neighbors) {
+            for (neighbor in graph[current.name]?.neighbors ?: emptyList()) {
                 if (neighbor in visited) {
                     continue
                 }
 
-                val tentativeDistance = if (distances[current] != null) distances[current] else 0 + distance(current, neighbor)
-                if (tentativeDistance != null && tentativeDistance <= maxDistance) {
+                val tentativeDistance = distances.getOrDefault(current, Double.MAX_VALUE) + distance(current, neighbor)
+                if (tentativeDistance <= maxDistance) {
                     if (tentativeDistance < distances.getOrDefault(neighbor, Double.MAX_VALUE)) {
                         distances[neighbor] = tentativeDistance
                         predecessors[neighbor] = current
-                        if (!queue.contains(neighbor)) {
-                            queue.add(neighbor)
-                        }
+                        queue.add(neighbor)
                     }
                 }
             }
             nodesVisited++
         }
 
-        if (checkIfShouldReturnPositiveInfinity(end, visited)) {
-            return shouldReturnPositiveInfinity()
+        if (!pathFound) {
+            return Pair(Double.POSITIVE_INFINITY, emptyList())
         }
 
-        val path = mutableListOf<String>()
+        val path = mutableListOf<Neighborhood>()
         var current: Neighborhood? = end
+
         while (current != null) {
-            path.add(current.name)
+            path.add(current)
             current = predecessors[current]
         }
+
         path.reverse()
 
         return Pair(distances[end]!!, path)
     }
-
-    private suspend fun shouldReturnPositiveInfinity(): Pair<Double, List<String>> {
-        return Pair(Double.POSITIVE_INFINITY, emptyList())
-    }
-
-    private suspend fun checkIfShouldReturnPositiveInfinity(end: Neighborhood, visited: Set<Neighborhood>): Boolean {
-        return end !in visited
-    }
-
-
 }
