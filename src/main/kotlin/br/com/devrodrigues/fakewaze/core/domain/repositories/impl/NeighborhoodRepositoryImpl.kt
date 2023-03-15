@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component
 @Component
 class NeighborhoodRepositoryImpl(
     private var getNeighborhoodData: Map<String, Neighborhood>,
-    private var getNeighborhoodDataorhoods: Map<String, Neighborhood>,
+    private var getNeighborhoodGraph: Map<String, Neighborhood>,
 ): NeighborhoodRepository {
     override suspend fun getNeighborhoodBy(name: String): Neighborhood =
         getNeighborhoodData[name] ?: throw WazeDestinationNotFoundException("Invalid neighborhood")
 
     override suspend fun getNeighborhoodGraph(): Map<String, Neighborhood> =
-        getNeighborhoodDataorhoods
+        getNeighborhoodGraph
 }

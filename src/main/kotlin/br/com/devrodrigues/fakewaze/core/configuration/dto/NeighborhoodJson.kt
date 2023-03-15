@@ -7,6 +7,6 @@ data class NeighborhoodJson(
     val name: String,
     val lat: String,
     val lng: String,
-    val weight: Int,
+    val weight: Double,
     val neighbors: List<NeighborhoodJson>
 )

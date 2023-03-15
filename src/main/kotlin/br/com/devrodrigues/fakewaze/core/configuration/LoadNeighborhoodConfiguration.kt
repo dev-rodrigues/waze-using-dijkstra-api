@@ -41,14 +41,12 @@ class LoadNeighborhoodConfiguration(
         LOGGER.info { "neighborhoodsList: $neighborhoodsList" }
 
         neighborhoodsList.forEach { neighborhoodJson ->
-            val neighborhood = Neighborhood(
-                name = neighborhoodJson.name,
+            val neighborhood = Neighborhood(name = neighborhoodJson.name,
                 lat = neighborhoodJson.lat,
                 lng = neighborhoodJson.lng,
-                weight = neighborhoodJson.weight,
                 neighbors = neighborhoodJson.neighbors.map {
                     Neighborhood(
-                        name = it.name, lat = it.lat, lng = it.lng, weight = it.weight, neighbors = emptyList()
+                        name = it.name, lat = it.lat, lng = it.lng, neighbors = emptyList()
                     )
                 }
 
@@ -61,72 +59,64 @@ class LoadNeighborhoodConfiguration(
 
     @Bean
     @Order(2)
-    fun loadNeighbord(): Map<String, List<Pair<Neighborhood, Int>>> {
+    fun loadNeighbored(): Map<String, List<Neighborhood>> {
         return mapOf(
             "Leblon" to listOf(
-                Pair(getNeighborhoodData()["Ipanema"]!!, 2),
-                Pair(getNeighborhoodData()["Gavea"]!!, 5),
+                this.getNeighborhoodData()["Ipanema"]!!,
+                this.getNeighborhoodData()["Gavea"]!!,
+                this.getNeighborhoodData()["Copacabana"]!!
             ),
-            "Ipanema" to listOf(
-                Pair(getNeighborhoodData()["Leblon"]!!, 2),
-                Pair(getNeighborhoodData()["Gavea"]!!, 3),
-                Pair(getNeighborhoodData()["Copacabana"]!!, 4),
-            ),
+            "Ipanema" to listOf(this.getNeighborhoodData()["Leblon"]!!, this.getNeighborhoodData()["Gavea"]!!),
             "Copacabana" to listOf(
-                Pair(getNeighborhoodData()["Ipanema"]!!, 4),
-                Pair(getNeighborhoodData()["Botafogo"]!!, 3),
-                Pair(getNeighborhoodData()["Flamengo"]!!, 5),
+                this.getNeighborhoodData()["Ipanema"]!!,
+                this.getNeighborhoodData()["Botafogo"]!!,
+                this.getNeighborhoodData()["Flamengo"]!!
             ),
             "Botafogo" to listOf(
-                Pair(getNeighborhoodData()["Copacabana"]!!, 3),
-                Pair(getNeighborhoodData()["Flamengo"]!!, 2),
-                Pair(getNeighborhoodData()["Catete"]!!, 2),
+                this.getNeighborhoodData()["Copacabana"]!!,
+                this.getNeighborhoodData()["Flamengo"]!!,
+                this.getNeighborhoodData()["Catete"]!!
             ),
             "Flamengo" to listOf(
-                Pair(getNeighborhoodData()["Copacabana"]!!, 5),
-                Pair(getNeighborhoodData()["Botafogo"]!!, 2),
-                Pair(getNeighborhoodData()["Catete"]!!, 2),
-                Pair(getNeighborhoodData()["Glória"]!!, 2),
+                this.getNeighborhoodData()["Copacabana"]!!,
+                this.getNeighborhoodData()["Botafogo"]!!,
+                this.getNeighborhoodData()["Catete"]!!,
+                this.getNeighborhoodData()["Glória"]!!
             ),
             "Catete" to listOf(
-                Pair(getNeighborhoodData()["Botafogo"]!!, 2),
-                Pair(getNeighborhoodData()["Flamengo"]!!, 2),
-                Pair(getNeighborhoodData()["Catete"]!!, 2),
-                Pair(getNeighborhoodData()["Laranjeiras"]!!, 3),
+                this.getNeighborhoodData()["Botafogo"]!!,
+                this.getNeighborhoodData()["Flamengo"]!!,
+                this.getNeighborhoodData()["Catete"]!!,
+                this.getNeighborhoodData()["Laranjeiras"]!!,
             ),
-            "Glória" to listOf(
-                Pair(getNeighborhoodData()["Lapa"]!!, 3),
-                Pair(getNeighborhoodData()["Flamengo"]!!, 2),
-            ),
+            "Glória" to listOf(this.getNeighborhoodData()["Lapa"]!!, this.getNeighborhoodData()["Flamengo"]!!),
             "Laranjeiras" to listOf(
-                Pair(getNeighborhoodData()["Catete"]!!, 3),
-                Pair(getNeighborhoodData()["Jardim Botânico"]!!, 5),
+                this.getNeighborhoodData()["Catete"]!!,
+                this.getNeighborhoodData()["Jardim Botânico"]!!
             ),
             "Jardim Botânico" to listOf(
-                Pair(getNeighborhoodData()["Laranjeiras"]!!, 5),
-                Pair(getNeighborhoodData()["Lagoa"]!!, 4),
+                this.getNeighborhoodData()["Laranjeiras"]!!,
+                this.getNeighborhoodData()["Lagoa"]!!
             ),
             "Lagoa" to listOf(
-                Pair(getNeighborhoodData()["Jardim Botânico"]!!, 4),
-                Pair(getNeighborhoodData()["Gavea"]!!, 3),
+                this.getNeighborhoodData()["Jardim Botânico"]!!, this.getNeighborhoodData()["Gavea"]!!
             ),
-            "Gavea" to listOf(
-                Pair(getNeighborhoodData()["Leblon"]!!, 5),
-                Pair(getNeighborhoodData()["Ipanema"]!!, 3),
-            ),
+            "Gavea" to listOf(this.getNeighborhoodData()["Leblon"]!!, this.getNeighborhoodData()["Ipanema"]!!)
         )
     }
 
     @Bean
     @Order(3)
-    fun getNeighborhoodDataorhoods(): Map<String, Neighborhood> {
-        val neighborhoods = getNeighborhoodData()
+    fun getNeighborhoodGraph(): Map<String, Neighborhood> {
+        val neighborhoods = this.getNeighborhoodData()
 
         val response = mutableMapOf<String, Neighborhood>()
 
         neighborhoods.forEach { (name, neighborhood) ->
-            val neighbors = loadNeighbord()[name] ?: emptyList()
-            val neighborhoodWithNeighbors = neighborhood.copy(neighbors = neighbors.map { it.first })
+            val neighbors = loadNeighbored()[name] ?: emptyList()
+            val neighborhoodWithNeighbors = neighborhood.copy(
+                neighbors = neighbors.map { it },
+            )
             response[name] = neighborhoodWithNeighbors
         }
 
