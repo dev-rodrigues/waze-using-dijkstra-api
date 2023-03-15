@@ -3,6 +3,7 @@ package br.com.devrodrigues.fakewaze.application.http.handler
 import br.com.devrodrigues.fakewaze.application.http.createWebTestClient
 import br.com.devrodrigues.fakewaze.application.http.handler.WazeApiHandleFixture.getBestRouteResponse
 import br.com.devrodrigues.fakewaze.core.domain.exceptions.WazeException
+import br.com.devrodrigues.fakewaze.core.domain.usecase.GraphUseCase
 import br.com.devrodrigues.fakewaze.core.domain.usecase.ShouldGetBestRouteUseCase
 import io.kotest.core.spec.style.DescribeSpec
 import io.mockk.*
@@ -12,11 +13,11 @@ class WazeApiHandleTest : DescribeSpec({
 
 
     val shouldGetBestRouteUseCase = mockk<ShouldGetBestRouteUseCase>()
+    val graphUseCase = mockk<GraphUseCase>()
 
     val webClient = createWebTestClient(
-        wazeApiHandle = WazeApiHandle(
-            shouldGetBestRouteUseCase
-        )
+        wazeApiHandle = WazeApiHandle(shouldGetBestRouteUseCase),
+        graphApiHandle = GraphApiHandle(graphUseCase)
     )
 
     describe("Should execute WazeApiHandle") {

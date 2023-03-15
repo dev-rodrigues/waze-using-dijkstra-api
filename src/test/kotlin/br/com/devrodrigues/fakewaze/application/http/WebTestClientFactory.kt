@@ -1,5 +1,6 @@
 package br.com.devrodrigues.fakewaze.application.http
 
+import br.com.devrodrigues.fakewaze.application.http.handler.GraphApiHandle
 import br.com.devrodrigues.fakewaze.application.http.handler.WazeApiHandle
 import kotlinx.serialization.json.Json
 import org.springframework.http.codec.json.KotlinSerializationJsonDecoder
@@ -9,10 +10,12 @@ import org.springframework.web.reactive.function.server.HandlerStrategies
 import java.time.Duration
 
 fun createWebTestClient(
-    wazeApiHandle: WazeApiHandle
+    wazeApiHandle: WazeApiHandle,
+    graphApiHandle: GraphApiHandle
 ): WebTestClient {
     val router = RouterConfiguration(
-        wazeApiHandle = wazeApiHandle
+        wazeApiHandle = wazeApiHandle,
+        graphApiHandle = graphApiHandle
     ).requestRouter()
     val json = Json { ignoreUnknownKeys = true }
     val jsonEncoder = KotlinSerializationJsonEncoder(json)

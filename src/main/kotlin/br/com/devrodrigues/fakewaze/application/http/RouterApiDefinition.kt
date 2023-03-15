@@ -75,4 +75,6 @@ interface RouterApiDefinition {
         )
     )
     fun requestRouter(): RouterFunction<ServerResponse>
+
+    fun requestGraph(): RouterFunction<ServerResponse>
 }
