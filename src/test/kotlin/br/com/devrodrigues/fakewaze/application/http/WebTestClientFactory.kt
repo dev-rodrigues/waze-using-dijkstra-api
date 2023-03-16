@@ -15,7 +15,7 @@ fun createWebTestClient(
 ): WebTestClient {
     val router = RouterConfiguration(
         wazeApiHandle = wazeApiHandle,
-        graphApiHandle = graphApiHandle
+        graphApiHandle = graphApiHandle,
     ).requestRouter()
     val json = Json { ignoreUnknownKeys = true }
     val jsonEncoder = KotlinSerializationJsonEncoder(json)

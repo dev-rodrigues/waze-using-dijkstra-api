@@ -7,14 +7,12 @@ object NeighborhoodRepositoryFixture {
         name: String = "fake",
         lat: String = "fake",
         lng: String = "fake",
-        weight: Int = 0,
         neighbors: List<Neighborhood> = listOf()
     ) = mapOf(
         "fake" to Neighborhood(
             name = name,
             lat = lat,
             lng = lng,
-            weight = weight,
             neighbors = neighbors
         )
     )

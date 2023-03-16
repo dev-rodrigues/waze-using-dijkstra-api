@@ -11,7 +11,8 @@ class NeighborhoodRepositoryImplTest : DescribeSpec({
 
     val repository = NeighborhoodRepositoryImpl(
         getNeighborhoodData = NeighborhoodRepositoryFixture.getNeighborhoodData(),
-        getNeighborhoodDataorhoods = NeighborhoodRepositoryFixture.getNeighborhoodData()
+        getNeighborhoodGraph = NeighborhoodRepositoryFixture.getNeighborhoodData(),
+
     )
 
     describe("Should execute NeighborhoodRepositoryImpl.getNeighborhoodByName") {
