@@ -9,6 +9,22 @@ data class BestRouteResponse(
     val route: List<Neighborhood>
 )
 
+data class GraphResponse(
+    val name: String,
+    val lat: Number,
+    val lng: Number
+) {
+    companion object {
+        fun map(response: Neighborhood): GraphResponse {
+            return GraphResponse(
+                response.name,
+                response.lat.toDouble(),
+                response.lng.toDouble()
+            )
+        }
+    }
+}
+
 data class ErrorResponse(
     val message: String
 )

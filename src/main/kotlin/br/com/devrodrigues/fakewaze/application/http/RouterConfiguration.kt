@@ -5,12 +5,14 @@ import br.com.devrodrigues.fakewaze.application.http.handler.WazeApiHandle
 import br.com.devrodrigues.fakewaze.application.http.handler.toServerResponse
 import org.springframework.context.annotation.Bean
 import org.springframework.http.MediaType.APPLICATION_JSON
-import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.server.RouterFunction
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.coRouter
 
-@Component
+@CrossOrigin(origins = ["http://localhost:3000"])
+@RestController
 class RouterConfiguration(
     private val wazeApiHandle: WazeApiHandle,
     private val graphApiHandle: GraphApiHandle
@@ -31,6 +33,7 @@ class RouterConfiguration(
         }
         accept(APPLICATION_JSON).nest {
             WAZE_ROOT_PATH.nest {
+
                 GET("/{${WAZE_FROM_PARAMETER}}/{${WAZE_TO_PARAMETER}}") { req ->
                     withRequestContext(req.context) {
                         wazeApiHandle.getRoute(req)
@@ -59,3 +62,18 @@ class RouterConfiguration(
     }
 }
 
+//@Configuration
+//class CorsConfig {
+//    @Bean
+//    fun corsWebFilter(): WebFilter {
+//        val corsConfig = CorsConfiguration()
+//        corsConfig.addAllowedOrigin("*")
+//        corsConfig.addAllowedMethod("*")
+//        corsConfig.addAllowedHeader("*")
+//
+//        return CorsWebFilter { _, corsConfigurationSource ->
+//            corsConfig
+//        }
+//    }
+//}
+//
